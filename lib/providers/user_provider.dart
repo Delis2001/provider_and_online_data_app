@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_function_literals_in_foreach_calls
+// ignore_for_file: prefer_const_constructors, avoid_function_literals_in_foreach_calls, avoid_print
 
 import 'dart:convert';
 
@@ -12,29 +12,36 @@ class UserProvider extends ChangeNotifier{
  bool isLoadingPost = true;
 
 
+ savedUsers(List<UserModel> value){
+    users = value;
+  }
+
   saveisLoadingPost(bool value){
     isLoadingPost = value;
     notifyListeners();
 }
 
 fetchUsers()async{
-    List<UserModel> usersTmpList =[];
+   try {
+      List<UserModel> usersTmpList =[];
     ApiResult result = await UserService.fetchUsers();
     saveisLoadingPost(false);
-    if(result.success=true){
- List<dynamic> list = jsonDecode(result.response!.body) as List<dynamic>;
+    if(result.success==true){
+  List<dynamic> list = jsonDecode(result.response!.body) as List<dynamic>;
    list.forEach((usersData) {
     //print(postsData.toString());
     usersTmpList.add(UserModel.fromMap(usersData));
     });
     }else{
-      Text(' Error Occurd while loading users');
+      print (' Error Occurd while loading users');
     }
   
     // print(postTmpList[20].author_name);
     savedUsers(usersTmpList);
+   } catch (e) {
+    print('Error $e');
+    print('Error occurred');
+   }
   }
-  savedUsers(List<UserModel> value){
-    users = value;
-  }
+ 
 }

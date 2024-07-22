@@ -1,5 +1,6 @@
  import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:provider_and_online_data_app/providers/offline_post_provider.dart';
 import 'package:provider_and_online_data_app/providers/post_provider.dart';
 import 'package:provider_and_online_data_app/providers/user_provider.dart';
 import 'package:provider_and_online_data_app/screens/home_screen.dart';
@@ -14,7 +15,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (context)=> PostProvider()),
-      ChangeNotifierProvider(create: (context)=> UserProvider())
+      ChangeNotifierProvider(create: (context)=> UserProvider()),
+      ChangeNotifierProvider(create: (context)=> offlinePostsProvider())
     ],
       child: const MaterialApp(
         home: Scaffold(

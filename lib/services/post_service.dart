@@ -18,7 +18,8 @@ class PostService {
       }
     } catch (e) {
       print('Error $e');
-      return ApiResult(success: false,message: 'Error occurd while fetching post');
+      return ApiResult(success: false,message: 'Error occurred while fetching post');
     }
   }
+  
 }
